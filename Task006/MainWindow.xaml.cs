@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Task006.Models;
 
 namespace Task006
 {
@@ -26,6 +27,8 @@ namespace Task006
         }
 
         private readonly string apiKey = "248726EA-D21C-8C46-A4F3-7E82EA505D63B6DB8BBD-51D3-45F3-B92B-7AC19CF47307";
+
+        Dictionary<string, CharactersCoreModel> dictionaryCacheCharInfo = new Dictionary<string, CharactersCoreModel>();
 
         private async void ButtonAccountInfo_Click(object sender, RoutedEventArgs e)
         {
@@ -73,7 +76,14 @@ namespace Task006
             var listBox = sender as ListBox;
             var name = listBox.SelectedItem as string;
             var nameEncoded = Uri.EscapeUriString(name);
-            var characterCoreInfo = await Wrapper.GetCharacterInfo(nameEncoded, apiKey);
+
+            //check if we have info in 'cache'
+            if (!dictionaryCacheCharInfo.ContainsKey(nameEncoded))
+            {
+                dictionaryCacheCharInfo.Add(nameEncoded, await Wrapper.GetCharacterInfo(nameEncoded, apiKey));
+            }
+            
+            var characterCoreInfo = dictionaryCacheCharInfo[nameEncoded];
 
             //fill new info
             try
@@ -94,6 +104,7 @@ namespace Task006
             textBlockCreated.Text = characterCoreInfo.Created.ToString();
             textBlockDeaths.Text = characterCoreInfo.Deaths.ToString();
             textBlockLevel.Text = characterCoreInfo.Level.ToString();
+          
 
             IsEnabled = true;
         }
