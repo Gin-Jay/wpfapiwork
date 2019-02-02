@@ -13,11 +13,10 @@
                     <Grid.RowDefinitions>
 
                         <RowDefinition Height="0.1*"></RowDefinition>
-                        <RowDefinition Height="0.18*"></RowDefinition>
-                        <RowDefinition Height="0.18*"></RowDefinition>
-                        <RowDefinition Height="0.18*"></RowDefinition>
-                        <RowDefinition Height="0.18*"></RowDefinition>
-                        <RowDefinition Height="0.18*"></RowDefinition>
+                        <RowDefinition Height="0.225*"></RowDefinition>
+                        <RowDefinition Height="0.225*"></RowDefinition>
+                        <RowDefinition Height="0.225*"></RowDefinition>
+                        <RowDefinition Height="0.225*"></RowDefinition>
                         
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -31,7 +30,7 @@
                     <TextBlock Name="TextName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"></TextBlock>
                     <TextBlock Name="TextAge" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"></TextBlock>
                     <TextBlock Name="TextWorld" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"></TextBlock>
-                    <TextBlock Name="TextCreated" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0"></TextBlock>
+                    <TextBlock Name="TextCreated" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1"></TextBlock>
                     <CheckBox Name="CheckBoxCommander" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" IsEnabled="False"></CheckBox>
                     <ComboBox Name="ComboBoxGuilds" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" IsReadOnly="True"></ComboBox>
                     <ComboBox Name="ComboBoxAccess" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" IsReadOnly="True"></ComboBox>
@@ -39,6 +38,40 @@
             </TabItem>
             <TabItem Header="Characters" Width="200" Height="30">
                 <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="0.1*"></RowDefinition>
+                        <RowDefinition Height="0.225*"></RowDefinition>
+                        <RowDefinition Height="0.225*"></RowDefinition>
+                        <RowDefinition Height="0.225*"></RowDefinition>
+                        <RowDefinition Height="0.225*"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.375*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.375*"></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Get character information" Grid.ColumnSpan="3" Click="ButtonCharacterInfo_Click"></Button>
+                    <ListBox Name="listBoxName" Grid.Row="1" Grid.RowSpan="4" SelectionChanged="ListBoxName_SelectionChanged"/>
+                    <Label Name="label1" Content="Title (ID)" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+                    <Label Name="label2" Content="Race" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2"/>
+                    <Label Name="label3" Content="Gender" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="3"/>
+                    <Label Name="label4" Content="Profession" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="4"/>
+                    <Label Name="label5" Content="Age" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1"/>
+                    <Label Name="label6" Content="Created" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="2"/>
+                    <Label Name="label7" Content="Deaths" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="3"/>
+                    <Label Name="label8" Content="Level" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="4"/>
+                    <TextBlock Name="textBlockTitle" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                    <TextBlock Name="textBlockRace" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+                    <TextBlock Name="textBlockGender" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+                    <TextBlock Name="textBlockProfession" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+                    <TextBlock Name="textBlockAge" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
+                    <TextBlock Name="textBlockCreated" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2"/>
+                    <TextBlock Name="textBlockDeaths" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="3"/>
+                    <TextBlock Name="textBlockLevel" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
 
                 </Grid>
             </TabItem>

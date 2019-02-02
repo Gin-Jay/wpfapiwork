@@ -50,5 +50,53 @@ namespace Task006
             ComboBoxGuilds.ItemsSource = guilds;
             ComboBoxGuilds.SelectedIndex = guilds.Count > 0 ? 0 : -1;
         }
+
+        private async void ButtonCharacterInfo_Click(object sender, RoutedEventArgs e)
+        {
+            listBoxName.ItemsSource = await Wrapper.GetCharInfo(apiKey);
+        }
+
+        private async void ListBoxName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IsEnabled = false;
+            //clear info
+            textBlockAge.Text = string.Empty;
+            textBlockCreated.Text = string.Empty;
+            textBlockDeaths.Text = string.Empty;
+            textBlockGender.Text = string.Empty;
+            textBlockLevel.Text = string.Empty;
+            textBlockProfession.Text = string.Empty;
+            textBlockRace.Text = string.Empty;
+            textBlockTitle.Text = string.Empty;
+            
+            //request new info
+            var listBox = sender as ListBox;
+            var name = listBox.SelectedItem as string;
+            var nameEncoded = Uri.EscapeUriString(name);
+            var characterCoreInfo = await Wrapper.GetCharacterInfo(nameEncoded, apiKey);
+
+            //fill new info
+            try
+            {
+                var titleInfo = await Wrapper.GetTitleInfo(characterCoreInfo.Title);
+                textBlockTitle.Text = $"{titleInfo.Name} ({titleInfo.Id})";
+            }
+            catch
+            {
+                textBlockTitle.Text = "None";
+            }
+
+            textBlockRace.Text = characterCoreInfo.Race;
+            textBlockGender.Text = characterCoreInfo.Gender;
+            textBlockProfession.Text = characterCoreInfo.Profession;
+            var span = TimeSpan.FromSeconds(characterCoreInfo.Age);
+            textBlockAge.Text = $"{span.Days} Days, {span.Hours} Hours\n{span.Minutes} Minutes, {span.Seconds} Seconds";
+            textBlockCreated.Text = characterCoreInfo.Created.ToString();
+            textBlockDeaths.Text = characterCoreInfo.Deaths.ToString();
+            textBlockLevel.Text = characterCoreInfo.Level.ToString();
+
+            IsEnabled = true;
+        }
+
     }
 }
