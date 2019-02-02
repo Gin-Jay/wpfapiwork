@@ -65,7 +65,41 @@ namespace Task006
                 return null;
             }
         }
+        
+        public static async Task<List<string>> GetCharInfo(string accessToken)
+        {
+            var urlCharacter = $"{baseUrl}{CharactersAdo}?access_token={accessToken}";
+            var responseCharacter = await Request.GetAsync(urlCharacter);
+            return JsonConvert.DeserializeObject<List<string>>(responseCharacter);
+        }
 
-            
-}
+        public static async Task<CharactersCoreModel> GetCharacterInfo(string nameEncoded, string accessToken)
+        {
+            var urlCharacterName = $"{baseUrl}{CharactersAdo}/{nameEncoded}/core?access_token={accessToken}";
+            var responseCharacterName = await Request.GetAsync(urlCharacterName);
+            return JsonConvert.DeserializeObject<CharactersCoreModel>(responseCharacterName);
+        }
+
+        public static async Task<TitleInfoModel> GetTitleInfo(int titleId)
+        {
+            var urlTitleInfo = $"{baseUrl}/titles/{titleId}";
+            var responseTitleInfo = await Request.GetAsync(urlTitleInfo);
+            return JsonConvert.DeserializeObject<TitleInfoModel>(responseTitleInfo);
+        }
+
+        public static async Task<List<CurrencyModelShort>> GetWalletInfo(string accessToken)
+        {
+            var urlWalletInfo = $"{baseUrl}{accountAdo}{WalletAdo}?access_token={accessToken}";
+            var responseWallet = await Request.GetAsync(urlWalletInfo);
+            return JsonConvert.DeserializeObject<List<CurrencyModelShort>>(responseWallet);
+        }
+
+        public static async Task<List<CurrencyModelFull>> GetCurrencyInfo(List<int> currencyList)
+        {
+            var urlCurrencyInfo = $"{baseUrl}{CurrencyAdo}?ids={string.Join(",", currencyList)}";
+            var responseCurrency = await Request.GetAsync(urlCurrencyInfo);
+            return JsonConvert.DeserializeObject<List<CurrencyModelFull>>(responseCurrency);
+        }
+
+    }
 }
