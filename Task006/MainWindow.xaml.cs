@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -109,5 +110,58 @@ namespace Task006
             IsEnabled = true;
         }
 
+        private async void ButtonGetWalletInfo_Click(object sender, RoutedEventArgs e)
+        {
+            IsEnabled = false;
+
+
+            //request wallet
+            var walletInfo = await Wrapper.GetWalletInfo(apiKey);
+
+            //request currencies
+            var currencyList = new List<int>();
+            foreach (var currency in walletInfo)
+            {
+                currencyList.Add(currency.Id);
+            }
+
+            var currencyInfo = await Wrapper.GetCurrencyInfo(currencyList);
+
+            //load currency img
+            var currencyImageList = new List<BitmapImage>();
+            foreach (var currency in currencyInfo)
+            {
+                currencyImageList.Add(await Request.GetImageAsync(currency.Icon));
+            }
+
+            //create view data structure
+            //var dt = new DataTable();
+            //List<CurrencyModelFull> dt = new List<CurrencyModelFull>();
+            //dt.Columns.Add("Icon", typeof(BitmapImage));
+            //dt.Columns.Add("Name", typeof(string));
+            //dt.Columns.Add("Amount", typeof(int));
+
+            var walletList = new List<WalletInfoTable>();
+            for (var i = 0; i < currencyInfo.Count; i++)
+            {
+                var obj = new WalletInfoTable(currencyImageList[i], currencyInfo[i].Name, walletInfo[i].Value);
+                walletList.Add(obj);
+            }
+
+
+            dataGridWallet.ItemsSource = walletList;
+        
+
+            // fill in currency data
+            //dataGridViewWallet.DataSource = dt;
+           
+            
+
+            //adjust icon view
+            //var iconColumn = dataGridViewWallet.Columns["Icon"] as DataGridViewImageColumn;
+            //iconColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+            IsEnabled = true;
+        }
     }
 }

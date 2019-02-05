@@ -75,6 +75,32 @@
 
                 </Grid>
             </TabItem>
+
+            <TabItem Header="Wallet" Width="200" Height="30">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"></RowDefinition>
+                        <RowDefinition Height="0.9*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="buttonGetWalletInfo" Content="Get wallet information" Click="ButtonGetWalletInfo_Click"/>
+                    <DataGrid x:Name="dataGridWallet" Grid.Row="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Icon}"  Header="Icon"  />
+                            <DataGridTemplateColumn Header="Image" Width="SizeToCells" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Image}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Name}"  Header="Name"  />
+                            <DataGridTextColumn Binding="{Binding Amount}"  Header="Amount"  />
+
+                            
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
         </TabControl>
 
     </Grid>
